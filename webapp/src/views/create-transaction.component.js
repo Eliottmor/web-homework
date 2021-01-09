@@ -13,7 +13,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks'
 
 export function CreateTransaction () {
   const [createTransaction] = useMutation(CREATE_TRANSACTION, { update (cache, { data }) {
-    const newTransaction = data.createTransaction
+    const newTransaction = { ...data.createTransaction, amount: parseFloat(data.createTransaction.amount / 100) }
     const exisitingTransactions = cache.readQuery({
       query: GET_ALL_TRANSACTIONS
     })
@@ -31,10 +31,11 @@ export function CreateTransaction () {
   } })
   const { data: merchantData } = useQuery(GET_ALL_MERCHANTS)
   const { data: userData } = useQuery(GET_ALL_USERS)
-  const [transaction, setTransaction] = useState({ amount: 0, credit: false, debit: false, description: '', merchantId: '', userId: '' })
+  const defaultTransactionState = { amount: 0, credit: false, debit: false, description: '', merchantId: '', userId: '' }
+  const [transaction, setTransaction] = useState(defaultTransactionState)
 
   const handleChange = ({ target }) => {
-    const value = target.name === 'amount' ? parseInt(target.value) : target.value
+    const value = target.name === 'amount' ? parseFloat(target.value) : target.value
     if (target.value === 'credit') {
       setTransaction({ ...transaction, credit: true, debit: false })
     } else if (target.value === 'debit') {
@@ -49,8 +50,10 @@ export function CreateTransaction () {
       <div css={containerStyle}>
         <InputLabel id='amount'>Amount</InputLabel>
         <Input
+          disableUnderline
           name='amount'
           onChange={handleChange}
+          step='.01'
           type='number'
           value={transaction.amount}
         />
@@ -89,6 +92,7 @@ export function CreateTransaction () {
         <div>
           <Button css={buttonStyle} onClick={() => {
             createTransaction({ variables: transaction })
+            setTransaction(defaultTransactionState)
           }}>
           Create Transaction
           </Button>
