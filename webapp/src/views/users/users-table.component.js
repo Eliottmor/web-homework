@@ -26,7 +26,7 @@ export function UsersTable ({ users }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.map((user) => (
+          {users && users.map((user) => (
             <TableRow key={user.id}>
               <TableCell align='left' css={noBorderCell}>{user.firstName} {user.lastName} </TableCell>
               <TableCell align='left' css={noBorderCell}>{user.dob}</TableCell>

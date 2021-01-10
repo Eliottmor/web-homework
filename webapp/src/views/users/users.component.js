@@ -12,7 +12,7 @@ export function Users () {
     <>
       <Container>
         <CreateUser />
-        {!loading && (<UsersTable users={data.users} />)}
+        {!loading && (<UsersTable users={data && data.users} />)}
       </Container>
     </>
   )

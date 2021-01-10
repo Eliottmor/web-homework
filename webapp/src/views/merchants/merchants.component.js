@@ -12,7 +12,7 @@ export function Merchants () {
     <>
       <Container>
         <CreateMerchant />
-        {!loading && (<MerchantsTable merchants={data.merchants} />)}
+        {!loading && (<MerchantsTable merchants={data && data.merchants} />)}
       </Container>
     </>
   )
