@@ -15,7 +15,7 @@ export function TransactionsView () {
     <>
       <Container>
         <CreateTransaction />
-        {!loading && (<TransactionTable roman={roman} transactions={data.transactions} />)}
+        {!loading && (<TransactionTable roman={roman} transactions={data && data.transactions} />)}
         <FormControlLabel
           control={<Switch checked={roman} name='roman' onChange={() => setRoman(!roman)} />}
           label='Roman'

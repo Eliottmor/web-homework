@@ -26,7 +26,7 @@ export function MerchantsTable ({ merchants }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {merchants.map((merchant) => (
+          {merchants && merchants.map((merchant) => (
             <TableRow key={merchant.id}>
               <TableCell align='left' css={noBorderCell}>{merchant.name}</TableCell>
               <TableCell align='left' css={noBorderCell}>{merchant.description}</TableCell>

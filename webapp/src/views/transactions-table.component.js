@@ -69,7 +69,7 @@ export function TransactionTable ({ transactions, roman }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {transactions.map((transaction) => (
+          {transactions && transactions.map((transaction) => (
             <TableRow key={transaction.id}>
               <TableCell align='left' css={noBorderCell}>{convertToRoman(String(transaction.amount), roman)}</TableCell>
               <TableCell align='left' css={noBorderCell}>{creditOrDebit(transaction.credit)}</TableCell>
